@@ -4,6 +4,8 @@ import json
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
+json_data = ''
+
 @app.route('/')
 def index():
     return render_template('home.html')
@@ -13,7 +15,8 @@ def get_data():
     data = requests.get(
         'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=&order=dec&format=json'
     )
-    return render_template('data.html', data = {data})
+    json_data = json.loads(data.text)
+    return render_template('data.html', sent_data = json_data)
 
 if __name__ == '__main__':
     app.run()

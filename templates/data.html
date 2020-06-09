@@ -4,10 +4,8 @@
     <h1>Data Page Content</h1>
 </div>
 <div>
-    {% for planet in data %}
-        <!-- {% for value in planet %} -->
-            <div>{{planet["pl_name"]}}</div>
-        <!-- {% endfor %} -->
+    {% for planet in sent_data %}
+        <div>{{planet['pl_name']}}</div>
     {% endfor %}
 </div>
 {% endblock %}
