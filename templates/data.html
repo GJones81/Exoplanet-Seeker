@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h1>Data Page Content</h1>
+</div>
+<div>
+    {% for planet in data %}
+        <div>{{planet}}</div>
+    {% endfor %}
+</div>
+{% endblock %}
