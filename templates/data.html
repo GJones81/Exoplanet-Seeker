@@ -5,7 +5,9 @@
 </div>
 <div>
     {% for planet in data %}
-        <div>{{planet}}</div>
+        <!-- {% for value in planet %} -->
+            <div>{{planet["pl_name"]}}</div>
+        <!-- {% endfor %} -->
     {% endfor %}
 </div>
 {% endblock %}
