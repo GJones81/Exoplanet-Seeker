@@ -5,7 +5,7 @@
 </div>
 <div>
     {% for planet in sent_data %}
-        <div>{{planet['pl_name']}}</div>
+        <div>{{ planet['pl_hostname'] }} {{ planet['pl_name'] }} {{ planet['pl_pnum'] }} Days:{{ planet['pl_orbper'] }} {{ planet['pl_dens'] }}g/cm^3 {{ planet['eqt'] }}K {{ planet['pl_rade']}} {{planet['pl_radj']}}</div>
     {% endfor %}
 </div>
 {% endblock %}
