@@ -1,11 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
-    <h1>Data Page Content</h1>
+    <h1>Data Page</h1>
+    <h2>This is a subset of the data pulled from NASA</h2>
 </div>
 <div>
-    {% for planet in sent_data %}
-        <div>{{ planet['pl_hostname'] }} {{ planet['pl_name'] }} {{ planet['pl_pnum'] }} Days:{{ planet['pl_orbper'] }} {{ planet['pl_dens'] }}g/cm^3 {{ planet['eqt'] }}K {{ planet['pl_rade']}} {{planet['pl_radj']}}</div>
-    {% endfor %}
+    <table style="width:100%">
+        <tr>
+            <th>Star Name</th>
+            <th>Planet Name</th>
+            <th>Number of Planets in that System</th>
+            <th>Orbital Period(Days)</th>
+            <th>Planet Density(g/cm^3)</th>
+            <th>Radius vs Jupiter</th>
+        </tr>
+        {% for planet in sent_data %}
+            <tr>
+                <td>{{ planet['pl_hostname'] }}</td> 
+                <td>{{ planet['pl_name'] }}</td> 
+                <td>{{ planet['pl_pnum'] }}</td>
+                <td>{{ planet['pl_orbper'] }}</td>
+                <td>{{ planet['pl_dens'] }}</td>
+                <td>{{planet['pl_radj']}}</td>
+            </tr>
+        {% endfor %}
+    </table>
 </div>
 {% endblock %}

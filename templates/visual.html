@@ -1,5 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
+<form method="POST" action="/visual">
+    <div>
+        <label for="x axis">X Axis Value</label>
+        <select name="x_value" id="x_value">
+            <option value="pl_pnum">Number of Planets</option>
+            <option value="pl_orbper">Orbital Period</option>
+            <option value="pl_dens">Planet Density</option>
+            <option value="pl_radj">Radius compared to Jupiter</option>
+        </select>
+    </div>
+    <div>
+        <label for="y axis">Y Axis Value</label>
+        <select name="y_value" id="y_value">
+            <option>None</option>
+            <option value="pl_pnum">Number of Planets</option>
+            <option value="pl_orbper">Orbital Period</option>
+            <option value="pl_dens">Planet Density</option>
+            <option value="pl_radj">Radius compared to Jupiter</option>
+        </select>
+    </div>
+    <input type="submit">
+</form>
 <div>
    <img src="{{image}}" />
 </div>
