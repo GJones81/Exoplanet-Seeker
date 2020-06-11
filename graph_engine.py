@@ -9,19 +9,14 @@ import numpy as np
 # This file contains the functions which generate the graphs. It is imported over in index.py
 # as graph.
 
-        # Uses the pygal library
-        # bar_chart = pygal.Bar()
-        # bar_chart.add('Graph', x_values_array)
-        # return bar_chart.render()
-
 # Returns the Line Graph
-def plot(x, y):
-    fig = Figure(figsize=(7, 7))
+def plot(x, y, x_label, y_label='y - axis'):
+    fig = Figure(figsize=(8, 8))
     canvas = FigureCanvas(fig)
     axis = fig.add_subplot(1, 1, 1)
     axis.set_title('Line Graph')
-    axis.set_xlabel('x axis')
-    axis.set_ylabel('y axis')
+    axis.set_xlabel(x_label)
+    axis.set_ylabel(y_label)
     axis.grid()
     if y == 'Empty':
         axis.plot(x, 'b')
@@ -37,12 +32,12 @@ def plot(x, y):
     return image
 
 # Returns the Histogram Graph
-def histgram(values, bins):
-    fig = Figure(figsize=(7, 7))
+def histgram(values, bins, x_label):
+    fig = Figure(figsize=(8, 8))
     canvas = FigureCanvas(fig)
     axis = fig.add_subplot(1, 1, 1)
     axis.set_title('Histogram Graph')
-    axis.set_xlabel('x axis')
+    axis.set_xlabel(x_label)
     axis.set_ylabel('y axis')
     axis.grid()
     axis.hist(values, bins)
@@ -56,12 +51,12 @@ def histgram(values, bins):
     return image
 
 # Returns the Bar Graph
-def bar(values, indices):
-    fig = Figure(figsize=(7, 7))
+def bar(values, indices, x_label):
+    fig = Figure(figsize=(8, 8))
     canvas = FigureCanvas(fig)
     axis = fig.add_subplot(1, 1, 1)
     axis.set_title('Bar Graph')
-    axis.set_xlabel('x axis')
+    axis.set_xlabel(x_label)
     axis.set_ylabel('y axis')
     axis.grid()
     axis.bar(indices, values)
@@ -75,13 +70,13 @@ def bar(values, indices):
     return image
 
 # Returns the Scatter Plot Graph
-def scatter(x, y):
-    fig = Figure(figsize=(7, 7))
+def scatter(x, y, x_label, y_label):
+    fig = Figure(figsize=(8, 8))
     canvas = FigureCanvas(fig)
     axis = fig.add_subplot(1, 1, 1)
     axis.set_title('Scatter Plot Graph')
-    axis.set_xlabel('x axis')
-    axis.set_ylabel('y axis')
+    axis.set_xlabel(x_label)
+    axis.set_ylabel(y_label)
     axis.grid()
     axis.scatter(x, y)
 

@@ -7,8 +7,19 @@
     <title>Exoplanet Seeker</title>
 </head>
 <body>
-    <div id = 'navbar'>{% block nav %}{% endblock %}</div>
+    <nav id = 'nav'>
+        <ul>
+            <a href="/">Home</a>
+            <a href="/data">See the data</a>
+        </ul>
+    </nav>
+    <div id = 'navbar'>
+        {% block nav %}{% endblock %}
+    </div>
     <div id = 'content'>{% block content %}{% endblock %}</div>
-    <div id = 'footer'>{% block footer %}{% endblock %}</div>  
+    <div id = 'footer'>
+        <p>Created by Guy Jones</p>
+        <p>All data courtesy of NASA!!</p>
+    </div>  
 </body>
 </html>
