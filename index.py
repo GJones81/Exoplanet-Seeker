@@ -6,6 +6,7 @@ import base64
 import io
 import json
 import numpy as np
+import pandas as pd
 import pygal
 import random
 import requests
@@ -13,7 +14,7 @@ import requests
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-# Global variables to take user inputs and be entering into plotting functions
+# Global variables to take user inputs and be entered into plotting functions
 
 x_values = []
 y_values = []
@@ -30,26 +31,49 @@ def pull_y_values(y):
             y_values.append(planet[y])
     return y_values
 
+def get_data():
+    data = requests.get(
+        'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=&order=dec&format=json'
+    )
+    global json_data
+    json_data = json.loads(data.text)
+    return json_data
+
+def create_dataframe(data):
+    global data_frame
+    data_frame = pd.DataFrame(data = data)
+    return data_frame
+
 # Renders the Home page
 @app.route('/')
 def index():
     return render_template('home.html')
 
-# Calls the NASA API for a fresh subset of the database table, renders it to /data
+# Calls the function get_data for a fresh subset of the database table, renders it to /data
 @app.route('/data')
-def get_data():
-    data = requests.get(
-        'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=&order=dec&format=json'
-    )
-    json_data = json.loads(data.text)
-    # This is the point at which the data needs to be converted into a 
-    # dataframe via Pandas, then into a Numpy array, then to a list
-    return render_template('data.html', sent_data = json_data)
+def send_data():
+    data = get_data()
+    # data = requests.get(
+    #     'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=&order=dec&format=json'
+    # )
+    # json_data = json.loads(data.text)
+    # # This is the point at which the data needs to be converted into a 
+    # # dataframe via Pandas, then into a Numpy array, then to a list
+    return render_template('data.html', sent_data = data)
 
+# On GET method shows a form where the user enters x axis values and y axis values
+# On POST method takes those submitted values and inputs them into the matplotlib code to plot the graph
 @app.route('/visual', methods=['GET', 'POST'])
 def data_vis():
     if request.method == 'POST':
-        print(cached_data)
+        data_frame = create_dataframe(json_data)
+        print(data_frame)
+        x_value = request.form['x_value']
+        print(x_value)
+        x_values_array = np.array(data_frame[x_value])
+        # x_values_array = x_values_array.tolist()
+        print(x_values_array)
+        print(data_frame[x_value])
     # Builds a graph, converts it to a png formatted file, then 64 byte strings, stores them
     # in 'image' and sends it to the client
         fig = Figure()
@@ -59,7 +83,7 @@ def data_vis():
         axis.set_xlabel('x - axis')
         axis.set_ylabel('y - axis')
         axis.grid()
-        axis.plot([1, 2, 3, 4, 5], [2, 4, 8, 16, 32], 'ro-')
+        axis.plot(x_values_array, 'r')
 
         pngImage = io.BytesIO()
         FigureCanvas(fig).print_png(pngImage)
