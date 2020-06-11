@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response, jsonify
+from flask import Flask, jsonify, render_template, request, Response 
 from pygal import Config
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -69,10 +69,10 @@ def data_vis():
         data_frame = create_dataframe(json_data)
         # print(data_frame)
         x_value = request.form['x_value']
-        y_value = request.form['y_value']
+        # y_value = request.form['y_value']
         # print(x_value)
         x_values_array = np.array(data_frame[x_value])
-        y_values_array = np.array(data_frame[y_value])
+        # y_values_array = np.array(data_frame[y_value])
         # print(x_values_array)
         # print(data_frame[x_value])
         
@@ -85,7 +85,7 @@ def data_vis():
         axis.set_xlabel('x - axis')
         axis.set_ylabel('y - axis')
         axis.grid()
-        axis.plot(x_values_array, y_values_array, 'r')
+        axis.plot(x_values_array, 'r')
 
         pngImage = io.BytesIO()
         FigureCanvas(fig).print_png(pngImage)
