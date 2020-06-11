@@ -8,29 +8,15 @@ import json
 import numpy as np
 import pandas as pd
 import pygal
-import random
 import requests
+
+# My module made for organizing my app
+import graph_engine as graph
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-# Global variables to take user inputs and be entered into plotting functions
-
-x_values = []
-y_values = []
-
-def pull_x_values(x):
-    for planet in json_data:
-        if type(planet[x]) == int:
-            x_values.append(planet[x])
-    return x_values
-
-def pull_y_values(y):
-    for planet in json_data:
-        if type(planet[y]) == int:
-            y_values.append(planet[y])
-    return y_values
-
+# This function gets the data from the NASA API
 def get_data():
     data = requests.get(
         'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=&order=dec&format=json'
@@ -39,6 +25,7 @@ def get_data():
     json_data = json.loads(data.text)
     return json_data
 
+# This function takes the json object and converts it to a pandas data frame
 def create_dataframe(data):
     global data_frame
     data_frame = pd.DataFrame(data = data)
@@ -53,51 +40,58 @@ def index():
 @app.route('/data')
 def send_data():
     data = get_data()
-    # data = requests.get(
-    #     'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=&order=dec&format=json'
-    # )
-    # json_data = json.loads(data.text)
-    # # This is the point at which the data needs to be converted into a 
-    # # dataframe via Pandas, then into a Numpy array, then to a list
     return render_template('data.html', sent_data = data)
 
-# On GET method shows a form where the user enters x axis values and y axis values
-# On POST method takes those submitted values and inputs them into the matplotlib code to plot the graph
+# On GET method shows a form where the user enters the type of graph, x axis values, and y axis values
+# On POST method takes those submitted values and calls the functions in 
+# graph_engine.py to plot and returns the desired graph
 @app.route('/visual', methods=['GET', 'POST'])
 def data_vis():
     if request.method == 'POST':
         data_frame = create_dataframe(json_data)
+        graph_type = request.form['graph_type']
         # print(data_frame)
-        x_value = request.form['x_value']
-        # y_value = request.form['y_value']
-        # print(x_value)
-        x_values_array = np.array(data_frame[x_value])
-        # y_values_array = np.array(data_frame[y_value])
-        # print(x_values_array)
-        # print(data_frame[x_value])
-        
-    # Builds a graph, converts it to a png formatted file, then 64 byte strings, stores them
-    # in 'image' and sends it to the client
-        fig = Figure(figsize=(6, 6))
-        canvas = FigureCanvas(fig)
-        axis = fig.add_subplot(1, 1, 1)
-        axis.set_title('My Graph')
-        axis.set_xlabel('x - axis')
-        axis.set_ylabel('y - axis')
-        axis.grid()
-        axis.plot(x_values_array, 'r')
 
-        pngImage = io.BytesIO()
-        FigureCanvas(fig).print_png(pngImage)
+        # This block creates Line graphs
+        if graph_type == 'line':
 
-        pngImageB64String = 'data:image/png; base64,'
-        pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
+            # If there is no value input for the y axis, create only the x axis array
+            if request.form['y_value'] == 'None':
+                x_value = request.form['x_value']
+                x_values_array = np.array(data_frame[x_value])
+                y_values_array = 'Empty'
+  
+            # Create both x and y axes arrays if there is input for the y axis
+            else:
+                x_value = request.form['x_value']
+                x_values_array = np.array(data_frame[x_value])
+                y_value = request.form['y_value']
+                y_values_array = np.array(data_frame[y_value])
+                
+            return render_template('visual.html', image = graph.plot(x_values_array, y_values_array))
 
-        return render_template('visual.html', image=pngImageB64String)
-    # Uses the pygal library
-        # bar_chart = pygal.Bar()
-        # bar_chart.add('Graph', x_values_array)
-        # return bar_chart.render()
+        # This block creates Histogram graphs
+        elif graph_type == 'hist':
+            x_value = request.form['x_value']
+            x_values_array = np.array(data_frame[x_value])
+            bins = 8
+            return render_template('visual.html', image = graph.histgram(x_values_array, bins))
+
+        # This block creates Bar graphs
+        elif graph_type == 'bar':
+            x_value = request.form['x_value']
+            x_values_array = np.array(data_frame[x_value])
+            y_value = [x for x in range(len(x_values_array))]
+            return render_template('visual.html', image = graph.bar(x_values_array, y_value))
+
+        # This block creates Scatter graphs    
+        else:
+            x_value = request.form['x_value']
+            x_values_array = np.array(data_frame[x_value])
+            y_value = request.form['y_value']
+            y_values_array = np.array(data_frame[y_value])
+        return render_template('visual.html', image = graph.scatter(x_values_array, y_values_array))
+    # This line is the GET method response, renders the form for submitting values to be graphed
     else:
         return render_template('visual.html')
 
