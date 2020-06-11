@@ -67,23 +67,25 @@ def send_data():
 def data_vis():
     if request.method == 'POST':
         data_frame = create_dataframe(json_data)
-        print(data_frame)
+        # print(data_frame)
         x_value = request.form['x_value']
-        print(x_value)
+        y_value = request.form['y_value']
+        # print(x_value)
         x_values_array = np.array(data_frame[x_value])
-        # x_values_array = x_values_array.tolist()
-        print(x_values_array)
-        print(data_frame[x_value])
+        y_values_array = np.array(data_frame[y_value])
+        # print(x_values_array)
+        # print(data_frame[x_value])
+        
     # Builds a graph, converts it to a png formatted file, then 64 byte strings, stores them
     # in 'image' and sends it to the client
-        fig = Figure()
+        fig = Figure(figsize=(6, 6))
         canvas = FigureCanvas(fig)
         axis = fig.add_subplot(1, 1, 1)
         axis.set_title('My Graph')
         axis.set_xlabel('x - axis')
         axis.set_ylabel('y - axis')
         axis.grid()
-        axis.plot(x_values_array, 'r')
+        axis.plot(x_values_array, y_values_array, 'r')
 
         pngImage = io.BytesIO()
         FigureCanvas(fig).print_png(pngImage)
@@ -94,7 +96,7 @@ def data_vis():
         return render_template('visual.html', image=pngImageB64String)
     # Uses the pygal library
         # bar_chart = pygal.Bar()
-        # bar_chart.add('Fibonacci', [0,1,1,2,3,5,8,13,21,34,55])
+        # bar_chart.add('Graph', x_values_array)
         # return bar_chart.render()
     else:
         return render_template('visual.html')
