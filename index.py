@@ -26,7 +26,7 @@ def get_data():
 # This function takes the json object and converts it to a pandas data frame
 def create_dataframe(data):
     global data_frame
-    data_frame = pd.DataFrame(data = data)
+    data_frame = pd.DataFrame(data = data).sort_values('pl_hostname')
     return data_frame
 
 def create_label(value):
@@ -68,6 +68,7 @@ def data_vis():
                 x_label = create_label(x_value)
                 x_values_array = np.array(data_frame[x_value])
                 y_values_array = 'Empty'
+                y_label = 'y axis'
   
             # Create both x and y axes arrays if there is input for the y axis
             else:

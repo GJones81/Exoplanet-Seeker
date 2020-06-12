@@ -9,6 +9,9 @@
     <table style="width:100%">
         <tr>
             <th>Star Name</th>
+            <th>Optical Magnitude of the Star</th>
+            <th>Estimated Temp (in Kelvin)</th>
+            <th>Distance in parsecs(3.26 lightyears)</th>
             <th>Planet Name</th>
             <th>Number of Planets in that System</th>
             <th>Orbital Period(Days)</th>
@@ -17,7 +20,10 @@
         </tr>
         {% for planet in sent_data %}
             <tr>
-                <td>{{ planet['pl_hostname'] }}</td> 
+                <td>{{ planet['pl_hostname'] }}</td>
+                <td>{{planet['st_optmag']}}</td>
+                <td>{{planet['st_teff']}}</td>
+                <td>{{planet['st_dist']}}</td>
                 <td>{{ planet['pl_name'] }}</td> 
                 <td>{{ planet['pl_pnum'] }}</td>
                 <td>{{ planet['pl_orbper'] }}</td>

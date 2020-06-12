@@ -10,7 +10,7 @@ import numpy as np
 # as graph.
 
 # Returns the Line Graph
-def plot(x, y, x_label, y_label='y - axis'):
+def plot(x, y, x_label, y_label):
     fig = Figure(figsize=(8, 8))
     canvas = FigureCanvas(fig)
     axis = fig.add_subplot(1, 1, 1)
@@ -40,7 +40,7 @@ def histgram(values, bins, x_label):
     axis.set_xlabel(x_label)
     axis.set_ylabel('y axis')
     axis.grid()
-    axis.hist(values, bins)
+    axis.hist(values, bins, histtype = 'bar', rwidth = 0.5)
 
     pngImage = io.BytesIO()
     FigureCanvas(fig).print_png(pngImage)
