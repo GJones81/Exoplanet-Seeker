@@ -34,7 +34,10 @@ def create_label(value):
         'pl_pnum': 'Num of Planets in System',
         'pl_orbper': 'Orbital Period',
         'pl_dens': 'Planet Density',
-        'pl_radj': 'Radius compared to Jupiter'
+        'pl_radj': 'Radius compared to Jupiter',
+        'st_optmag': 'Optical Magnitude of the Star',
+        'st_teff': 'Estimated Temp of the Star',
+        'st_dist': 'Distance to the Star'
     }
     return labels[value]
 
@@ -61,23 +64,12 @@ def data_vis():
 
         # This block shapes data for Line graphs
         if graph_type == 'line':
-
-            # If there is no value input for the y axis, create only the x axis array
-            if request.form['y_value'] == 'None':
-                x_value = request.form['x_value']
-                x_label = create_label(x_value)
-                x_values_array = np.array(data_frame[x_value])
-                y_values_array = 'Empty'
-                y_label = 'y axis'
-  
-            # Create both x and y axes arrays if there is input for the y axis
-            else:
-                x_value = request.form['x_value']
-                x_label = create_label(x_value)
-                x_values_array = np.array(data_frame[x_value])
-                y_value = request.form['y_value']
-                y_label = create_label(y_value)
-                y_values_array = np.array(data_frame[y_value])
+            x_value = request.form['x_value']
+            x_label = create_label(x_value)
+            x_values_array = np.array(data_frame[x_value])
+            y_value = request.form['y_value']
+            y_label = create_label(y_value)
+            y_values_array = np.array(data_frame[y_value])
                 
             return render_template('visual.html', image = graph.plot(x_values_array, y_values_array, x_label, y_label))
 
@@ -87,6 +79,7 @@ def data_vis():
             x_label = create_label(x_value)
             x_values_array = np.array(data_frame[x_value])
             bins = 8
+
             return render_template('visual.html', image = graph.histgram(x_values_array, bins, x_label))
 
         # This block shapes data Bar graphs
@@ -95,6 +88,7 @@ def data_vis():
             x_label = create_label(x_value)
             x_values_array = np.array(data_frame[x_value])
             y_value = [x for x in range(len(x_values_array))]
+
             return render_template('visual.html', image = graph.bar(x_values_array, y_value, x_label))
 
         # This block shapes data for Scatter graphs    
@@ -105,6 +99,7 @@ def data_vis():
             y_value = request.form['y_value']
             y_label = create_label(y_value)
             y_values_array = np.array(data_frame[y_value])
+
         return render_template('visual.html', image = graph.scatter(x_values_array, y_values_array, x_label, y_label))
     # This line is the GET method response, renders the form for submitting values to be graphed
     else:
