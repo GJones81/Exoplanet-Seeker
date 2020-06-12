@@ -8,7 +8,9 @@ verify_ssl = true
 [packages]
 flask = "*"
 gunicorn = "*"
-
+matplotlib = "*"
+numpy = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"
