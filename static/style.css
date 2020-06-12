@@ -1,8 +1,45 @@
 body {
     text-align: center;
     background-color: lightgray;
+    margin: 0;
+    padding: 2em;
 }
 
 a {
-    color: blue;
+    color: darkblue;
+    text-decoration: underline;
+}
+
+#nav {
+    background-color: darkgray;
+    min-height: 100px;
+}
+
+.nav_elem {
+    font-size: 30px;
+    margin: 30px;
+}
+
+table, th, td {
+    border: 3px solid black; 
+}
+
+table {
+    position: relative;
+}
+
+th {
+    position: sticky;
+}
+
+td {
+    text-align: left;
+}
+
+#flavor_text {
+    font-size: 25px;
+}
+
+#graph_link {
+    font-size: 30px;
 }
