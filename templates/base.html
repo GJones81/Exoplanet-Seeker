@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="static/style.css" />
     <title>Exoplanet Seeker</title>
 </head>
@@ -13,13 +14,11 @@
             <a href="/data">See the data</a>
         </ul>
     </nav>
-    <div id = 'navbar'>
-        {% block nav %}{% endblock %}
-    </div>
     <div id = 'content'>{% block content %}{% endblock %}</div>
     <div id = 'footer'>
         <p>Created by Guy Jones</p>
         <p>All data courtesy of NASA!!</p>
+        <a href="https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=planets">Link to NASA's data table</a>
     </div>  
 </body>
 </html>
