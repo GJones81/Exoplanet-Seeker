@@ -5,9 +5,8 @@ body {
     padding: 2em;
 }
 
-a {
-    color: darkblue;
-    text-decoration: underline;
+.top_banner {
+    background-color: darkgray;
 }
 
 #nav {
@@ -20,8 +19,17 @@ a {
     margin: 30px;
 }
 
+#footer {
+    background-color: darkgray;
+}
+
+.foot_elem {
+    display: inline;
+}
+
 table, th, td {
-    border: 3px solid black; 
+    border: 2px solid black;
+    background-color: blanchedalmond; 
 }
 
 table {
@@ -34,6 +42,11 @@ th {
 
 td {
     text-align: left;
+}
+
+a {
+    color: darkblue;
+    text-decoration: underline;
 }
 
 #flavor_text {

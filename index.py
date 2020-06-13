@@ -85,11 +85,11 @@ def data_vis():
         # This block shapes data Bar graphs
         elif graph_type == 'bar':
             x_value = request.form['x_value']
-            x_label = create_label(x_value)
+            y_label = create_label(x_value)
             x_values_array = np.array(data_frame[x_value])
             y_value = [x for x in range(len(x_values_array))]
 
-            return render_template('visual.html', image = graph.bar(x_values_array, y_value, x_label))
+            return render_template('visual.html', image = graph.bar(x_values_array, y_value, y_label))
 
         # This block shapes data for Scatter graphs    
         else:

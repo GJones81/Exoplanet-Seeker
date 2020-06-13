@@ -51,13 +51,13 @@ def histgram(values, bins, x_label):
     return image
 
 # Returns the Bar Graph
-def bar(values, indices, x_label):
+def bar(values, indices, y_label):
     fig = Figure(figsize=(8, 8))
     canvas = FigureCanvas(fig)
     axis = fig.add_subplot(1, 1, 1)
     axis.set_title('Bar Graph')
-    axis.set_xlabel(x_label)
-    axis.set_ylabel('y axis')
+    axis.set_xlabel('x axis')
+    axis.set_ylabel(y_label)
     axis.grid()
     axis.bar(indices, values)
 
