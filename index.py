@@ -8,7 +8,8 @@ import numpy as np
 import pandas as pd
 import requests
 
-# My module made for organizing my app
+# My module
+# graphing functions placed elsewhere to keep things orderly
 import graph_engine as graph
 
 app = Flask(__name__)
@@ -29,6 +30,7 @@ def create_dataframe(data):
     data_frame = pd.DataFrame(data = data).sort_values('pl_hostname')
     return data_frame
 
+# This function creates the labels for the axes
 def create_label(value):
     labels = {
         'pl_pnum': 'Num of Planets in System',
@@ -54,7 +56,7 @@ def send_data():
 
 # On GET method shows a form where the user enters the type of graph, x axis values, and y axis values
 # On POST method takes those submitted values and calls the functions in 
-# graph_engine.py to plot and returns the desired graph
+# graph_engine.py to plot and return the desired graph
 @app.route('/visual', methods=['GET', 'POST'])
 def data_vis():
     if request.method == 'POST':
@@ -67,7 +69,7 @@ def data_vis():
             x_value = request.form['x_value']
             x_label = create_label(x_value)
             x_values_array = np.array(data_frame[x_value])
-            bins = 8
+            bins = int(request.form['bins'])
 
             return render_template('visual.html', image = graph.histgram(x_values_array, bins, x_label))
 
@@ -76,9 +78,9 @@ def data_vis():
             x_value = request.form['x_value']
             y_label = create_label(x_value)
             x_values_array = np.array(data_frame[x_value])
-            y_value = [x for x in range(len(x_values_array))]
+            indices = [x for x in range(len(x_values_array))]
 
-            return render_template('visual.html', image = graph.bar(x_values_array, y_value, y_label))
+            return render_template('visual.html', image = graph.bar(x_values_array, indices, y_label))
 
         # This block shapes data for Scatter graphs    
         else:
