@@ -62,19 +62,8 @@ def data_vis():
         graph_type = request.form['graph_type']
         # print(data_frame)
 
-        # This block shapes data for Line graphs
-        if graph_type == 'line':
-            x_value = request.form['x_value']
-            x_label = create_label(x_value)
-            x_values_array = np.array(data_frame[x_value])
-            y_value = request.form['y_value']
-            y_label = create_label(y_value)
-            y_values_array = np.array(data_frame[y_value])
-                
-            return render_template('visual.html', image = graph.plot(x_values_array, y_values_array, x_label, y_label))
-
         # This block shapes data for Histogram graphs
-        elif graph_type == 'hist':
+        if graph_type == 'hist':
             x_value = request.form['x_value']
             x_label = create_label(x_value)
             x_values_array = np.array(data_frame[x_value])
