@@ -43,6 +43,18 @@ def create_label(value):
     }
     return labels[value]
 
+@app.errorhandler(500)
+def internal_error_500(error):
+    return render_template('error.html'), 500
+
+@app.errorhandler(503)
+def internal_error_503(error):
+    return render_template('error.html'), 503
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error.html'), 404
+
 # Renders the Home page
 @app.route('/')
 def index():
