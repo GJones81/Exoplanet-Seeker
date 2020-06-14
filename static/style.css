@@ -12,6 +12,7 @@ body {
 #nav {
     background-color: darkgray;
     min-height: 100px;
+    padding-top: 25px;
 }
 
 .nav_elem {
@@ -61,4 +62,22 @@ a {
 
 #graph_space {
     min-height: 70vmin;
+}
+
+.facts {
+    border-style: ridge;
+    border-radius: 10px;
+    border-color: darkblue;
+    margin: 10px;
+}
+
+.dect_def {
+    border-style: ridge;
+    border-radius: 10px;
+    border-color: darkblue;
+    padding: 10px;
+}
+
+.titles {
+    text-decoration: underline;
 }
