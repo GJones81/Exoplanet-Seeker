@@ -20,6 +20,10 @@ body {
     margin: 30px;
 }
 
+h1 {
+    text-decoration: underline;
+}
+
 #footer {
     background-color: darkgray;
 }
@@ -52,12 +56,24 @@ a {
     text-decoration: underline;
 }
 
-#flavor_text {
+.subtitle {
     font-size: 25px;
+    margin-top: -8px;
+}
+
+#sub_subtitle {
+    font-size: 20px;
+}
+
+#graph_button {
+    border-style: ridge;
+    border-color: darkblue;
+    border-radius: 10px;
 }
 
 #graph_link {
     font-size: 30px;
+    margin: 0px, 20px, 0px, 20px;
 }
 
 #graph_space {
@@ -81,3 +97,5 @@ a {
 .titles {
     text-decoration: underline;
 }
+
+
