@@ -18,7 +18,7 @@ app.config['DEBUG'] = True
 # This function gets the data from the NASA API
 def get_data():
     data = requests.get(
-        'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=&order=dec&format=json'
+        'https://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=exoplanets&select=pl_hostname,pl_pnum,st_optmag,st_teff,st_dist,pl_name,pl_discmethod,pl_orbper,pl_dens,pl_radj&order=dec&format=json'
     )
     global json_data
     json_data = json.loads(data.text)
