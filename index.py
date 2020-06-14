@@ -43,18 +43,6 @@ def create_label(value):
     }
     return labels[value]
 
-@app.errorhandler(500)
-def internal_error_500(error):
-    return render_template('error.html'), 500
-
-@app.errorhandler(503)
-def internal_error_503(error):
-    return render_template('error.html'), 503
-
-@app.errorhandler(404)
-def not_found_error(error):
-    return render_template('error.html'), 404
-
 # Renders the Home page
 @app.route('/')
 def index():
@@ -107,6 +95,14 @@ def data_vis():
     # This line is the GET method response, renders the form for submitting values to be graphed
     else:
         return render_template('visual.html')
+
+@app.errorhandler(500)
+def internal_error_500(error):
+    return render_template('error.html'), 500
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error.html'), 404
 
 if __name__ == '__main__':
     app.run()

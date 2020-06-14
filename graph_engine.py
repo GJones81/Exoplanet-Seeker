@@ -55,8 +55,9 @@ def scatter(x, y, x_label, y_label):
     axis.set_title('Scatter Plot Graph')
     axis.set_xlabel(x_label)
     axis.set_ylabel(y_label)
+    s = 10
     axis.grid()
-    axis.scatter(x, y)
+    axis.scatter(x, y, s)
 
     pngImage = io.BytesIO()
     FigureCanvas(fig).print_png(pngImage)

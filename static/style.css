@@ -2,7 +2,7 @@ body {
     text-align: center;
     background-color: lightgray;
     margin: 0;
-    padding: 2em;
+    padding: 1em;
 }
 
 .top_banner {
@@ -10,7 +10,8 @@ body {
 }
 
 #nav {
-    background-color: darkgray;
+    text-align: left;
+    background-color: #808080;
     min-height: 100px;
     padding-top: 25px;
 }
@@ -58,11 +59,8 @@ a {
 
 .subtitle {
     font-size: 25px;
-    margin-top: -8px;
-}
-
-#sub_subtitle {
-    font-size: 20px;
+    margin-top: -10px;
+    margin-bottom: 30px;
 }
 
 #graph_button {
